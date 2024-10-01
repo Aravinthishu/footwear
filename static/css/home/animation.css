@@ -1,0 +1,26 @@
+
+
+  .hero-image {
+    transition: transform 0.1s ease; /* Smooth transition */
+}
+
+.shake {
+    animation: shake 0.5s infinite alternate; /* Add shake animation */
+}
+
+@keyframes shake {
+    0% { transform: translate(0px); }
+    100% { transform: translate(5px); } /* Move 5 pixels to the right */
+}
+
+
+.hero-text {
+    opacity: 0; /* Start with hidden text */
+    transition: opacity 1s ease-in; /* Smooth transition for opacity */
+}
+
+.fade-in {
+    opacity: 1; /* Fully visible */
+}
+
+

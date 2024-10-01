@@ -1,0 +1,157 @@
+<div class="py-4 md:py-8">
+    <div class="mb-4 grid gap-4 sm:grid-cols-2 sm:gap-8 lg:gap-16">
+      <div class="space-y-4">
+        <div class="flex space-x-4">
+          <img class="h-16 w-16 rounded-lg" src="{{profile.avatar}}" alt="Helene avatar" />
+          <div>
+            <span class="mb-2 inline-block rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 \ "> PRO Account </span>
+            <h2 class="flex items-center text-xl font-bold leading-none text-gray-900  sm:text-2xl">{{profile.user.username}}</h2>
+          </div>
+        </div>
+        <dl class="">
+          <dt class="font-semibold text-gray-900 ">Email Address</dt>
+          <dd class="text-gray-500 ">{{profile.user.email}}</dd>
+        </dl>
+        <dl>
+          <dt class="font-semibold text-gray-900 ">Home Address</dt>
+          <dd class="flex items-center gap-1 text-gray-500 ">
+            <svg class="hidden h-5 w-5 shrink-0 text-gray-400  lg:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5" />
+            </svg>
+            {{profile.pickup_name}}
+          </dd>
+        </dl>
+        <dl>
+          <dt class="font-semibold text-gray-900 ">Delivery Address</dt>
+          <dd class="flex items-center gap-1 text-gray-500 ">
+            <svg class="hidden h-5 w-5 shrink-0 text-gray-400  lg:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+            </svg>
+            {{profile.delivery_address}}
+          </dd>
+        </dl>
+      </div>
+      <div class="space-y-4">
+        <dl>
+          <dt class="font-semibold text-gray-900 ">Phone Number</dt>
+          <dd class="text-gray-500 ">{{profile.phone}}</dd>
+        </dl>
+
+        <dl>
+          <dt class="font-semibold text-gray-900 ">My Companies</dt>
+          <dd class="text-gray-500 ">{{profile.company_name}}</dd>
+        </dl>
+        <dl>
+          <dt class="mb-1 font-semibold text-gray-900 ">Payment Methods</dt>
+          <dd class="flex items-center space-x-4 text-gray-500 ">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 ">
+              <img class="h-4 w-auto" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg" alt="" />
+              <img class="hidden h-4 w-auto " src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa-dark.svg" alt="" />
+            </div>
+            <div>
+              <div class="text-sm">
+                <p class="mb-0.5 font-medium text-gray-900 ">Visa ending in 7658</p>
+                <p class="font-normal text-gray-500 ">Expiry 10/2024</p>
+              </div>
+            </div>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <button type="button" data-modal-target="accountInformationModal2" data-modal-toggle="accountInformationModal2" class="bg-blue-400 inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300  sm:w-auto">
+      <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
+      </svg>
+      Edit your data
+    </button>
+    <a href="{% url 'account_logout' %}"><button type="button" class="inline-flex w-full bg-red-600 mx-4 items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300  sm:w-auto">
+      <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v3H3v-3m0-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h7v-3H3v-3h7V9H3zm8 0l4-4m0 0l-4-4m4 4H13"/>
+      </svg>
+      Logout
+  </button>
+  </a>
+  
+  </div>
+
+
+      <!-- Account Information Modal -->
+      <div id="accountInformationModal2" tabindex="-1" aria-hidden="true" class="max-h-auto fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden antialiased md:inset-0">
+        <div class="max-h-auto relative max-h-full w-full max-w-lg p-4">
+          <!-- Modal content -->
+          <div class="relative rounded-lg bg-white shadow ">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between rounded-t border-b border-gray-200 p-4 md:p-5">
+              <h3 class="text-lg font-semibold text-gray-900 ">Account Information</h3>
+              <button type="button" class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900  " data-modal-toggle="accountInformationModal2">
+                <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" method="post" enctype="multipart/form-data" action="{% url 'profile-update' %}">
+              {% csrf_token %}
+              <div class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="col-span-2">
+                  <label for="pick-up-point-input" class="mb-2 block text-sm font-medium text-gray-900 "> Profile </label>
+                  <input type="file" name="image" accept="image/*">
+                </div>
+                <div class="col-span-2">
+                  <label for="pick-up-point-input" class="mb-2 block text-sm font-medium text-gray-900 "> Pick-up point* </label>
+                  <input type="text" name="pickup_name" value="{{profile.pickup_name}}" id="pick-up-point-input" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Enter the pick-up point name" required />
+                </div>
+    
+                <div class="col-span-2 sm:col-span-1">
+                  <label for="full_name_info_modal" class="mb-2 block text-sm font-medium text-gray-900 "> Your Full Name* </label>
+                  <input type="text" id="full_name_info_modal" value="{{profile.user.username}}" name="name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Enter your first name" required />
+                </div>
+    
+                <div class="col-span-2 sm:col-span-1">
+                  <label for="email_info_modal" class="mb-2 block text-sm font-medium text-gray-900 "> Your Email* </label>
+                  <input type="text" id="email_info_modal" name="email" value="{{profile.user.email}}" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Enter your email here" required />
+                </div>
+    
+                <div class="col-span-2">
+                  <label for="phone-input_billing_modal" class="mb-2 block text-sm font-medium text-gray-900 "> Phone Number* </label>
+                    <div class="relative w-full">
+                      <input type="text" id="phone-input" name="phone" value="{{profile.phone}}" class="z-20 block w-full rounded-lg border  border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " pattern="[0-9]{10}"  placeholder="123-456-7890" required />
+                    </div>
+
+                </div>
+    
+                <div class="col-span-2 sm:col-span-1">
+                  <div class="mb-2 flex items-center gap-2">
+                    <label for="select_country_input_billing_modal" class="block text-sm font-medium text-gray-900 "> Country* </label>
+                  </div>
+                  <input id="select_country_input_billing_modal" name="country" value="{{profile.country}}" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Enter your country">
+
+                  </input>
+                </div>
+    
+                <div class="col-span-2 sm:col-span-1">
+                  <div class="mb-2 flex items-center gap-2">
+                    <label for="select_city_input_billing_modal" class="block text-sm font-medium text-gray-900 "> City* </label>
+                  </div>
+                  <input id="select_city_input_billing_modal" name="city" value="{{profile.city}}" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500      place" placeholder="Enter your city">
+                  </input>
+                </div>
+    
+                <div class="col-span-2">
+                  <label for="address_billing_modal" class="mb-2 block text-sm font-medium text-gray-900 "> Delivery Address* </label>
+                  <textarea id="address_billing_modal" rows="4" value="profile.delivery_address" name="delivery_address" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Enter here your address"></textarea>
+                </div>
+                <div class="col-span-2 ">
+                  <label for="company_name" class="mb-2 block text-sm font-medium text-gray-900 "> Company name </label>
+                  <input type="text" id="company_name" name="company_name" value="{{profile.company_name}}" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500     " placeholder="Your Company Name" />
+                </div>
+              </div>
+              <div class="border-t border-gray-200 pt-4 md:pt-5">
+                <button type="submit" class="me-2 inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300   ">Save information</button>
+                <button type="button" data-modal-toggle="accountInformationModal2" class="me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100     ">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>

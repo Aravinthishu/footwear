@@ -1,0 +1,33 @@
+<div class="container mx-auto py-8">
+    <div class="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <!-- Display only the first two banners -->
+        {% for banner in home_banner2|slice:":2" %}
+        <div class="relative col-span-1 ">
+            <img src="{{ banner.img.url }}" alt="{{ banner.title }}" class="w-full h-full object-cover  shadow-lg transition-transform duration-300 hover:scale-105">
+            <a href="{{ banner.link }}" class="absolute  inset-0 flex items-center justify-center banner-overlay">
+                <button class="banner-title bg-white px-5 py-3 font-medium rounded-sm hover:bg-red-600 hover:text-white duration-300 " >{{ banner.title }}</button>
+            </a>
+        </div>
+        {% endfor %}
+        <div class="flex flex-wrap gap-4 align-top justify-around">
+        {% for banner in home_banner2|slice:"2:" %}
+        <div class="relative">
+            <img src="{{ banner.img.url }}" alt="{{ banner.title }}" class="w-full h-full object-cover  shadow-lg transition-transform duration-300 hover:scale-105">
+            <a href="{{ banner.link }}" class="absolute inset-0 flex items-center justify-center banner-overlay">
+                <button class="banner-title bg-white px-5 py-3 font-medium rounded-sm hover:bg-red-600 hover:text-white duration-300 " >{{ banner.title }}</button>
+            </a>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="flex flex-wrap align-bottom ">
+            <div>
+            <h2 class="text-lg font-bold" style="font-size:32px">Contact us</h2>
+            <p class="mt-3">We are a team of designers and developers that create high quality Magento, Prestashop, Opencart.</p>
+            <a><button class="banner-title bg-red-600 text-white px-5 mt-3 py-3 font-medium rounded-sm hover:shadow-sm hover:border hover:bg-white hover:text-red-600 duration-300 " >Contact Us</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

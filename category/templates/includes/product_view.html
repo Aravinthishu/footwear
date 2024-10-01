@@ -1,0 +1,39 @@
+
+{% for item in product_list %}
+<a href="{% url 'product' slug=item.slug %}">
+      <div
+        class="bg-gray-50 shadow-md overflow-hidden rounded-lg cursor-pointer hover:-translate-y-2 transition-all relative">
+        <div
+          class="bg-gray-100 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-3 right-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16px" class="fill-gray-800 inline-block" viewBox="0 0 64 64">
+            <path
+              d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"
+              data-original="#000000"></path>
+          </svg>
+        </div>
+
+        <div class="w-5/6 h-[260px] p-4 overflow-hidden mx-auto aspect-w-16 aspect-h-8">
+          <img src="{{item.image.url}}" alt="Product 1"
+            class="h-full w-full object-contain" />
+        </div>
+        <div class="p-6 bg-white">
+          <h3 class="text-lg font-bold text-gray-800">{{item.name}}</h3>
+          <span class="flex justify-start align-bottom gap-2">
+          <h4 class="text-lg text-gray-800 font-bold mt-2">₹{{item.final_price}}</h4>
+          <h5 class="text-sm font-bol text-slate-600 line-through d mt-2">₹{{item.normal_price}}</h5>
+          </span>
+
+
+          <button
+          class="bg-indigo-600 flex gap-2 items-center text-white px-6 mt-2 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+          Add to Cart
+      </button>
+        </div>
+      </div>
+    </a>
+{% endfor %}

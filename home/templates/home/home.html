@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %} 
+
+
+
+{% include 'includes/messages.html' %}
+
+{% include 'includes/hero_slider.html' %}
+{% include 'includes/home_banner.html' %}
+
+
+{% include 'includes/product_list.html' %}
+
+{% include 'includes/home_banner2.html' %}
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<!-- Place this script right before the closing body tag -->
+<script>
+    function closeWishlistMessage(button) {
+      button.closest('div').style.display = 'none';
+    }
+  </script>
+
+{% endblock %}

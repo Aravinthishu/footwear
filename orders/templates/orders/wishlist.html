@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+<section class="bg-white py-8 antialiased  md:py-8 mt-10">
+    <div class="mx-auto max-w-screen-lg  2xl:px-0">
+<div class="rounded-lg border border-gray-200 bg-gray-50 p-4  md:p-8">
+    <h3 class="mb-4 text-xl font-semibold text-gray-900 ">Your Wishlist</h3>
+    {% if wishlist_items %}
+    {% for item in wishlist_items %}
+    <div class="flex flex-wrap items-center gap-y-4 border-b border-gray-200 pb-4  md:pb-5">
+      <dl class="w-1/2 sm:w-48">
+        <dt class="text-base font-medium text-gray-500 ">{{item.product.name}}</dt>
+        <dd class="mt-1.5 text-base font-semibold text-gray-900 ">
+          <a href="{% url 'product' item.product.slug %}"><img src="{{item.product.image.url}}" class=""></a>
+        </dd>
+      </dl>
+
+
+      <dl class="w-1/2 mx-10 sm:w-1/5 md:flex-1 lg:w-auto">
+        <dt class="text-base font-medium text-gray-500 ">Price:</dt>
+        <dd class="mt-1.5 text-base font-semibold text-gray-900 ">₹{{item.product.final_price}}</dd>
+      </dl>
+
+      <dl class="w-1/2 sm:w-1/4 sm:flex-1 lg:w-auto">
+        <dt class="text-base font-medium text-gray-500 ">Status:</dt>
+        {% if item.product.stock == 0%}
+        <dd class="me-2 mt-1.5 inline-flex shrink-0 items-center rounded bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 ">
+            <span>Out Of Stock</span>
+        </dd>
+        {% else %}
+        <dd class="me-2 mt-1.5 inline-flex shrink-0 items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 ">
+            <span>In Stock</span>
+        </dd>
+        {% endif %}
+      </dl>
+
+      <div class="w-full sm:flex sm:w-32 sm:items-center sm:justify-end sm:gap-4">
+        <form method="post" action="{% url 'remove-from-wishlist' item.product.id %}">
+          {% csrf_token %}
+          <button type="submit" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-red-600 hover:bg-gray-100">
+            <svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"></path>
+            </svg>
+            Remove
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No items in your wishlist</p>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+{% endblock %}
