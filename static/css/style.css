@@ -1,38 +1,15 @@
-.sign-up-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.allauth content a {
+    @apply underline underline-offset-2
 }
-
-.sign-up-container form {
-    display: flex;
-    flex-direction: column;
+.allauth content a:hover {
+    @apply text-indigo-500
 }
-
-.sign-up-container input,
-.sign-up-container button {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.allauth form[action="/accounts/signup/"] ul {
+    @apply hidden
 }
-
-.btn-signup {
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    cursor: pointer;
+.allauth form[action="/accounts/signup/"] ul.errorlist {
+    @apply block
 }
-
-.btn-signup:hover {
-    background-color: #004494;
+.allauth .helptext {
+    @apply block mt-4
 }
-
-.login-link {
-    text-align: center;
-    margin-top: 10px;
-}
-
-

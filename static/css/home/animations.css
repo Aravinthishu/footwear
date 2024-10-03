@@ -1,0 +1,12 @@
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px); /* Move the content down */
+    animation: fadeIn 0.5s forwards; /* Duration of 0.5s */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* Fully visible */
+        transform: translateY(0); /* Back to original position */
+    }
+}

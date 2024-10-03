@@ -1,22 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %} 
 
 
 
 {% include 'includes/messages.html' %}
 
-{% include 'includes/hero_slider.html' %}
-{% include 'includes/home_banner.html' %}
+{% include 'includes/home-slider2.html' %}
 
+{% include 'includes/home_banner.html' %}
 
 {% include 'includes/product_list.html' %}
 
 {% include 'includes/home_banner2.html' %}
 
-
+<section class=" flex justify-center">
+  <div class="bg-red-600 container rounded-md w-full h-36 p-10 flex gap-5 align-middle justify-between">
+    <div class="flex align-middle gap-3">
+      <img class="w-12 h-12" src="{% static 'images/icon_cms1.png' %}">
+      <p class="text-md font-bold text-white">Free Shipping<br><span class="text-sm font-normal">On all orders over $75.00</span></p>
+    </div>
+    <div class="flex align-middle gap-3">
+      <img class="w-12 h-12" src="{% static 'images/icon_cms2.png' %}">
+      <p class="text-md font-bold text-white">Free Returns<br><span class="text-sm font-normal">Returns are free within 9 days</span></p>
+    </div>
+    <div class="flex align-middle gap-3">
+      <img class="w-12 h-12" src="{% static 'images/icon_cms3.png' %}">
+      <p class="text-md font-bold text-white">Support 24/7<br><span class="text-sm font-normal">Contact us 24 hours a day</span></p>
+    </div>
+    <div class="flex align-middle gap-3">
+      <img class="w-12 h-12" src="{% static 'images/icon_cms4.png' %}">
+      <p class="text-md font-bold text-white">100% Payment Secure<br><span class="text-sm font-normal">Your payment are safe with us.</span></p>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
 

@@ -5,7 +5,6 @@ class HeroSection(models.Model):
     img = models.ImageField(upload_to='hero_section/', blank=True, null=True)  # Corrected upload path
     description = models.TextField(blank=True, null=True)  # Fixed typo
     button_1 = models.URLField(max_length=500, blank=True, null=True)
-    button_2 = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.heading or "Hero Section"  # In case heading is null
