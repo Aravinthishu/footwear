@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -14,6 +15,7 @@ from decimal import Decimal, InvalidOperation
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse
+from django.db.models import F
 
 
 @login_required
@@ -63,32 +65,50 @@ def add_to_cart(request, product_id):
 
     # Retrieve the quantity from the POST data, default to 1 if not provided
     quantity = int(request.POST.get('quantity', 1))
+    size_name = request.POST.get('size')
     
+    # Check if size is selected
+    if not size_name:
+        messages.error(request, "Please select a size.")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('product', args=[product_id])))
+
     # Validate quantity (ensure it's a positive integer)
-    if quantity <= 0:
+    if quantity <= product.stock:
         messages.error(request, "Quantity must be at least 1.")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('home')))
-    
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('product', args=[product_id])))
+
     # Get or create the cart for the user
     cart, created = Cart.objects.get_or_create(user=request.user)
+    
+    # Ensure the size exists in the database
+    size = get_object_or_404(Size, size=size_name)
 
     # Get or create the cart item
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product, size=size)
 
     # Update the quantity
     cart_item.quantity += quantity  # Always add the specified quantity
     cart_item.save()  # Save the cart item
 
-    messages.success(request, f"{quantity} x {product.name} has been added to your cart.")
+    messages.success(request, f"{product.name} has been added to your cart.")
     
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('home')))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('product', args=[product_id])))
+
 
 @login_required
 def cart_view(request):
     # Get the user's cart
     cart = get_object_or_404(Cart, user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
-    
+
+    # Initialize sizes as an empty list to handle cases when the cart is empty
+    sizes = []
+
+    if cart_items.exists():
+        for item in cart_items:
+            item.sizes = item.product.sizes.all()  # Fetch the related sizes for each product
+            sizes = item.sizes  # Set the sizes to the first item's sizes (just for the example)
+
     # Calculate the subtotal
     subtotal = sum(item.get_total_price() for item in cart_items)
     
@@ -156,8 +176,9 @@ def cart_view(request):
         'discount_amount': discount_amount,
         'final_total': final_total,
         'coupon': coupon,
+        'sizes': sizes,  # Use the initialized sizes list
     })
-            
+
 
 
 
@@ -197,6 +218,22 @@ def update_quantity(request):
             return JsonResponse({'success': False, 'error': 'Item does not exist'})
     return JsonResponse({'success': False, 'error': 'Invalid request'})
 
+@require_POST
+def update_cart_item_size(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    
+    if request.method == 'POST':
+        new_size_value = request.POST.get('size')
+        
+        # Fetch the Size instance based on the submitted value
+        new_size = get_object_or_404(Size, size=new_size_value)  # Adjust 'name' based on your Size model's field
+        
+        # Assign the Size instance to the CartItem
+        cart_item.size = new_size
+        cart_item.save()  # Save the updated cart item
+        
+        return redirect('cart')  # Redirect back to the cart view or another appropriate page
+
 from django.shortcuts import get_object_or_404, render
 from decimal import Decimal
 
@@ -206,6 +243,7 @@ def checkout_view(request):
     cart = get_object_or_404(Cart, user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
     subtotal = sum(item.get_total_price() for item in cart_items)
+    
     
     # Check if there's an existing unfinished order
     order = Order.objects.filter(user=request.user, is_finished=False).first()
@@ -283,7 +321,12 @@ def checkout_view(request):
                     product=cart_item.product,
                     quantity=cart_item.quantity,
                     price=cart_item.product.final_price,
+                    size = cart_item.size,
                     total=cart_item.get_total_price()
+                )
+                # Update the product's quantity
+                product = Product.objects.filter(id=cart_item.product.id).update(
+                    stock=F('stock') - cart_item.quantity
                 )
 
             # Empty the cart after the order is placed

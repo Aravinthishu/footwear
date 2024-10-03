@@ -14,7 +14,7 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('cart', 'product', 'quantity', 'get_total_price')
+    list_display = ('cart', 'product', 'quantity', 'size',  'get_total_price')
     search_fields = ('product__name',)
     list_filter = ('cart',)
 
