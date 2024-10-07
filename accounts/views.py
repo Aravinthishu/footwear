@@ -25,6 +25,11 @@ def profile_view(request, username=None):
             for order in orders:
                 order_details = OrderDetails.objects.filter(order=order)
                 order_details_list.extend(order_details)  # Add each order's details to the list
+
+            # Count the number of completed and canceled orders
+            completed_orders_count = Order.objects.filter(user=request.user, status='Completed').count()
+            canceled_orders_count = Order.objects.filter(user=request.user, status='Cancelled').count()
+            print(completed_orders_count)
             
         else:
             return redirect('account_login')  # Redirect to login if not authenticated
@@ -34,6 +39,8 @@ def profile_view(request, username=None):
         'profile': profile,
         'orders': orders if request.user.is_authenticated else [],  # Only include orders if authenticated
         'order_details': order_details_list,  # Include order details in the context
+        'completed_orders_count': completed_orders_count if request.user.is_authenticated else 0,
+        'canceled_orders_count': canceled_orders_count if request.user.is_authenticated else 0,
     }
     return render(request, 'accounts/profile.html', context)
 

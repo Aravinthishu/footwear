@@ -1,0 +1,78 @@
+
+  <style>
+    /* Optional: Add custom styles for the menu transition */
+    .menu {
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      transform: translateX(100%); /* Start off-screen to the right */
+      opacity: 0; /* Start invisible */
+    }
+
+    .menu.show {
+      transform: translateX(0); /* Move to the original position */
+      opacity: 1; /* Become visible */
+    }
+  </style>
+
+<body class="bg-gray-100">
+
+  <!-- Toggle Menu Icon -->
+
+    <button id="menuToggle" class="flex items-center justify-center w-10 h-10 rounded focus:outline-none focus:ring-2 focus:ring-gray-600">
+      <span id="icon" class="w-6 h-6 text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </span>
+    </button>
+
+
+  <!-- Navigation Menu -->
+  <nav id="menu" class="menu fixed top-0  right-0 w-64 h-full bg-white shadow-md z-50">
+    <button id="menuToggleClose" class="flex items-center border-gray-200 border-2  justify-center w-10 h-10  rounded focus:outline-none focus:ring-2 focus:ring-gray-600 absolute top-4 right-4">
+        <span id="closeIcon" class="w-6 h-6 text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+        </span>
+      </button>
+    <ul class="flex flex-col p-4 space-y-2">
+        <li class="px-3 text-red-600 font-bold text-lg">Categories</li>
+          <li class='max-lg:border-b max-lg:py-3 px-3'><a href="{% url 'latest_product' %}"
+              class='text-[#232323] hover:text-[#007bff] text-[15px] block font-semibold'>New</a></li>
+          {% for main_categories in main_categories%}
+          <li class='max-lg:border-b max-lg:py-3 px-3'>
+            <a href="{% url 'main_category' slug=main_categories.slug %}" 
+               class='text-[#232323] hover:text-[#007bff] text-[15px] block font-semibold'>
+                {{ main_categories.name }}
+            </a>
+        </li>
+            {% endfor %}
+    </ul>
+  </nav>
+
+  <script>
+    // JavaScript for toggling the menu
+    const menuToggle = document.getElementById('menuToggle');
+    const menuToggleClose = document.getElementById('menuToggleClose');
+    const menu = document.getElementById('menu');
+    const icon = document.getElementById('icon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    // Open menu
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('show');
+
+      // Change icon based on menu state
+      if (menu.classList.contains('show')) {
+        icon.style.display = 'none'; // Hide open icon
+      } else {
+        icon.style.display = 'flex'; // Show open icon
+      }
+    });
+
+    // Close menu
+    menuToggleClose.addEventListener('click', () => {
+      menu.classList.remove('show');
+      icon.style.display = 'flex'; // Show open icon when menu is closed
+    });
+  </script>

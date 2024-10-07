@@ -6,7 +6,7 @@ from django.templatetags.static import static
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='avatars/', null=True, blank=True)
     pickup_name = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     country = models.CharField(max_length=30, null=True, blank=True)

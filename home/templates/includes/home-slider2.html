@@ -9,9 +9,10 @@
             <img src="{{hero.img.url}}" class="relative block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="...">
             
             <!-- Overlay content -->
-            <div class="absolute px-72 inset-0 flex flex-col justify-center text-white p-4 fade-in">
-                <h2 class="text-7xl w-1/2 font-bold mb-4">{{hero.heading}}</h2>
-                <p class="text-lg w-1/2 mb-6">{{hero.description}}</p>
+            <div class="absolute md:px-24 lg:px-10 xl:px-64  inset-0 flex flex-col justify-center text-white p-4 fade-in">
+                <h2 class="w-1/2 font-bold mb-4 lg:text-7xl md:text-4xl text-md ">{{ hero.heading }}</h2>
+                <p class="text-lg w-1/2 mb-6 hidden md:block">{{ hero.description }}</p>
+                
                 <a href="{{hero.btn}}" class="bg-white w-fit hover:bg-red-500 text-black hover:text-white duration-500 font-bold py-2 px-4 rounded">
                     Get start
                 </a>

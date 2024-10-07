@@ -62,20 +62,26 @@ def add_to_cart(request, product_id):
         return redirect('login')  
 
     product = get_object_or_404(Product, id=product_id)
+    
 
     # Retrieve the quantity from the POST data, default to 1 if not provided
     quantity = int(request.POST.get('quantity', 1))
     size_name = request.POST.get('size')
     
+    
     # Check if size is selected
     if not size_name:
-        messages.error(request, "Please select a size.")
+        messages.success(request, "Please select a size.")
+        print("error")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('product', args=[product_id])))
 
     # Validate quantity (ensure it's a positive integer)
-    if quantity <= product.stock:
+    if quantity > product.stock:
         messages.error(request, "Quantity must be at least 1.")
+        print("error 2")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('product', args=[product_id])))
+    print(size_name)
+    
 
     # Get or create the cart for the user
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -97,8 +103,8 @@ def add_to_cart(request, product_id):
 
 @login_required
 def cart_view(request):
-    # Get the user's cart
-    cart = get_object_or_404(Cart, user=request.user)
+    # Try to get the user's cart, if it doesn't exist, create one
+    cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
 
     # Initialize sizes as an empty list to handle cases when the cart is empty
@@ -178,7 +184,6 @@ def cart_view(request):
         'coupon': coupon,
         'sizes': sizes,  # Use the initialized sizes list
     })
-
 
 
 
